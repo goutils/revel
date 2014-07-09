@@ -270,6 +270,12 @@ func initNewAppController(appControllerType *ControllerType, c *Controller) refl
 	for _, index := range appControllerType.ControllerIndexes {
 		appController.FieldByIndex(index).Set(cValue)
 	}
+
+	// Hack to support DI
+	if bindInstanceMethod := appControllerPtr.MethodByName("BindInstances"); bindInstanceMethod.IsValid() {
+		appControllerPtr.MethodByName("BindInstances").Call([]reflect.Value{})
+	}
+
 	return appControllerPtr
 }
 

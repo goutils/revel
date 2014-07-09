@@ -194,6 +194,11 @@ type RenderJsonResult struct {
 	callback string
 }
 
+// Hack to expose the resulting JSON
+func (this RenderJsonResult) Result() interface{} {
+	return this.obj
+}
+
 func (r RenderJsonResult) Apply(req *Request, resp *Response) {
 	var b []byte
 	var err error
